@@ -25,7 +25,6 @@ class TaskRunner:
         pending = deque(self.tasks.values())
         active = []
         while pending or active:
-            # Start ready tasks
             to_start = []
             remaining = deque()
             for t in pending:
@@ -38,12 +37,7 @@ class TaskRunner:
                 th = threading.Thread(target=self._exec, args=(t,))
                 th.start()
                 active.append((t, th))
-            # Check completed
-            still_active = []
-            for t, th in active:
-                if th.is_alive():
-                    still_active.append((t, th))
-            active = still_active
+            active = [(t, th) for t, th in active if th.is_alive()]
             time.sleep(0.05)
         return {n: t.result for n, t in self.tasks.items()}
 
