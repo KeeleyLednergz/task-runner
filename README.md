@@ -1,2 +1,9 @@
 # task-runner
-Simple parallel task runner with dependency resolution
+
+Simple parallel task runner with dependency resolution.
+
+## Usage
+
+
+## License
+MIT
